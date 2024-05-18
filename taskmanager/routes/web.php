@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +27,8 @@ class Task
         int $id,
         string $title,
         string $description,
-        ?string $long_description,
+        // the questionmark below makes the string optional
+        ?string $long_description, 
         bool $completed,
         string $created_at,
         string $updated_at
@@ -80,17 +81,23 @@ $tasks = [
         '2023-03-04 12:00:00'
     ),
 ];
-Route::get('/', function () use($tasks){
+
+Route::get('/',function (){
+    return redirect()->route('tasks.index');
+});
+
+Route::get('/tasks', function () use($tasks){
     return view('index',[
         'tasks' =>$tasks
     ]);
 })->name('tasks.index');
 
 
-Route::get('/{id}', function ($id) {
-    return 'One single task';
-})->name('tasks.show');
+Route::get('/tasks{id}', function ($id) use ($tasks) {
+    $task= collect($tasks)->firstWhere('id',$id);
+    if (!$task) {
+        abort(404, 'Task not found');
+    }
+return view('show',['task'=>$task]);
 
-Route::fallback(function ($name) {
-    return 'Still got somewhere';
-});
+})->name('tasks.show');
