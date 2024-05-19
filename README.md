@@ -35,7 +35,7 @@ php artisan migrate
 5.Build Assets:
 npm run dev
 
-6.Run the Application
+6.Run the Application:
 php artisan serve
 
 Lastly: 
