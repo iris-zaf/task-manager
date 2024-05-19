@@ -21,18 +21,18 @@ Node.js and npm
 git clone https://github.com/your-username/task-manager.git
 cd task-manager
 
-2.Install Dependencies
+2.Install Dependencies:
 composer install
 npm install
 
-3.Configure Environment
+3.Configure Environment:
 cp .env.example .env
 php artisan key:generate
 
-4.Migrate Database
+4.Migrate Database:
 php artisan migrate
 
-5.Build Assets
+5.Build Assets:
 npm run dev
 
 6.Run the Application
